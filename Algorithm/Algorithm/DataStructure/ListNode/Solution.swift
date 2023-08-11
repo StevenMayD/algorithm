@@ -41,13 +41,23 @@ public class Solution {
     
     // 环形链表
     func hasCycle(_ head: ListNode?) -> Bool {
-        // 解法1：硬找 是否存在最终节点为nil. 如果有环，会永远执行，所以需要限定一个时间，1s内不退出循环，认为是环
-//        var pre = head
-//        while pre?.next != nil {
-//            var next = pre?.next
-//            pre = next?.next
-//        }
-//        return false
+        // 解法1：硬找 是否存在最终节点为nil. 如果有环，会永远执行，所以需要限定一个时间，计算了0.5s，没有到头，认为是链表中有环
+        //获取当前时间戳
+        let currentTime = Date().timeIntervalSince1970
+        let timestamp = Int64(currentTime * 1000)
+        
+        var pre = head
+        while pre?.next != nil {
+            var next = pre?.next
+            pre = next?.next
+            
+            let currentTime2 = Date().timeIntervalSince1970
+            let timestamp2 = Int64(currentTime2 * 1000)
+            if timestamp2-timestamp>500 {
+                return true
+            }
+        }
+        return false
         
         // 解法2：集合set收集遍历过的节点，每次比较，新的节点是否属于set中
         
