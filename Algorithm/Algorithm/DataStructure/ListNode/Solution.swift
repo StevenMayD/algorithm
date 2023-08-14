@@ -13,11 +13,11 @@ public class Solution {
         var cur = head // 当前节点
         var pre:ListNode? = nil // 前向节点
         while (cur != nil) {
-            var next = cur?.next // =号右边.next，表示获取下一个节点对象，swift无法赋值 cur=cur?.next
+            var next = cur?.next // =号右边.next，表示获取下一个节点对象，保存当前的next节点
             // =号左边.next，表示cur的下一节点指向pre节点（注意，这里cur.next是cur的指向赋值，并不是上一步的cur的next节点 ，不能直接temp=pre）
             cur?.next = pre
             pre = cur // pre赋值为新对象cur，pre逐步移动指向
-            cur = next // cur复制为新对象cur的下一个节点，cur逐步移动指向
+            cur = next // cur复制为新对象cur的下一个节点，cur逐步移动指向(swift可以赋值 cur=cur?.next)
         }
         return pre
     }
@@ -43,8 +43,9 @@ public class Solution {
     func hasCycle(_ head: ListNode?) -> Bool {
         // 解法1：硬找 是否存在最终节点为nil. 如果有环，会永远执行，所以需要限定一个时间，计算了0.5s，没有到头，认为是链表中有环
         //获取当前时间戳
-        let currentTime = Date().timeIntervalSince1970
-        let timestamp = Int64(currentTime * 1000)
+        /*
+        let currentTime = Date().timeIntervalSince1970 // 10位数时间戳 精确到秒
+        let timestamp = Int64(currentTime * 1000) // 13位数时间戳 精确到毫秒
         
         var pre = head
         while pre?.next != nil {
@@ -58,15 +59,54 @@ public class Solution {
             }
         }
         return false
+         */
         
-        // 解法2：集合set收集遍历过的节点，每次比较，新的节点是否属于set中
+        // 解法2：集合set收集遍历过的节点，每次比较，新的节点是否属于set中 : 需要ListNode遵循并实现Hashable协议，无法写到leetcode中
+//        var set = Set<ListNode>()
+//        var cur = head
+//        set.insert(cur!)
+//        while cur?.next != nil {
+//            var latter = cur?.next
+//            if set.contains(latter!) { // 判断集合中是否含有新节点
+//                return true
+//            } else {
+//                set.insert(latter!)
+//            }
+//        }
+//        return false
         
-        // 解法3：两个指针对象，判断是否相等过，相等过 则存在环， 否则是直链
-
-        return true
+        
+        
+        /* 解法3：快、慢两个指针对象，判断是否相等过，相等过 则存在环， 否则是直链
+         == 操作检测实例的值是否相等，"equal to"
+         === 操作检测指针引用的是否为同一个实例，"identical to"
+         */
+        var fast = head
+        var slow = head
+        while fast != nil && fast?.next != nil {
+            fast = fast?.next?.next
+            slow = slow?.next
+            if (fast === slow) { // 判断连个节点对象 是否相等
+                return true
+            }
+        }
+        return false
     }
     
-    
-    
+    /* 链表2：给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+     入环的第一个节点
+     */
+    func detectCycle(_ head: ListNode?) -> ListNode? {
+        var fast = head
+        var slow = head
+        while fast != nil && fast?.next != nil {
+            fast = fast?.next?.next
+            slow = slow?.next
+            if (fast === slow) { // 这样是找快慢节点相遇的点，不一定就在环的第一个节点相遇
+                return fast
+            }
+        }
+        return nil
+    }
     
 }
