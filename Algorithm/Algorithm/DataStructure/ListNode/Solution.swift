@@ -39,7 +39,11 @@ public class Solution {
         return dummy.next
     }
     
-    // 环形链表
+    /* 环形链表
+     目标：判断一个链表中，是否有环
+     破局：链表中有环的话，不论环多长，只可能有一个环，且是封闭的环，因为链表的节点可以是其他连个节点的next，但节点本身不可能有连个next
+     解决：快、慢两个指针对象，判断是否相等过，相等过 则存在环， 否则是直链
+     */
     func hasCycle(_ head: ListNode?) -> Bool {
         // 解法1：硬找 是否存在最终节点为nil. 如果有环，会永远执行，所以需要限定一个时间，计算了0.5s，没有到头，认为是链表中有环
         //获取当前时间戳
@@ -94,19 +98,74 @@ public class Solution {
     }
     
     /* 链表2：给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
-     入环的第一个节点
+     破局：  1.入环的第一个节点，一定是第一个经历两次遍历的节点
+            2. 一定有两个前向节点，一个next节点
+            3.入环的第一个节点，是环之前的线性链与环的交叉点
+     解决：使用快慢指针的方法来实现。首先判断链表是否存在环，如果存在环，找到环的起始节点
      */
     func detectCycle(_ head: ListNode?) -> ListNode? {
         var fast = head
         var slow = head
+        var isCycle = false
         while fast != nil && fast?.next != nil {
             fast = fast?.next?.next
             slow = slow?.next
             if (fast === slow) { // 这样是找快慢节点相遇的点，不一定就在环的第一个节点相遇
-                return fast
+                isCycle = true
+                break
             }
         }
-        return nil
+        
+        if isCycle == false {
+            return nil
+        } else {
+            var new = head
+            while new !== slow {
+                new = new?.next
+                slow = slow?.next
+            }
+            return new
+        }
+    }
+    
+    /* K个一组翻转链表
+     目标: 给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
+     破局: 1. 如何知道 组内不到k个节点 就不翻转：先循环链表，记录链表个数是否足够k个
+          2. 反转链表，反转了k个节点，就递归调用
+     解决: 反转 + 递归
+     */
+    func reverseKGroup(_ head: ListNode?, _ k: Int) -> ListNode? {
+        var current = head
+            var count = 0
+            
+            // 统计链表节点总数 小于 k
+            while current != nil && count < k {
+                current = current?.next
+                count += 1
+            }
+            
+            // 链表比k长 则进行按k分组 反转
+            if count == k {
+                var prev: ListNode? = nil
+                var tempCurrent = head
+                
+                // 反转k个节点
+                for _ in 0..<k {
+                    let tempNext = tempCurrent?.next
+                    tempCurrent?.next = prev
+                    prev = tempCurrent
+                    tempCurrent = tempNext // 循环结束，tempCurrent为下一组的头节点
+                }
+                
+                // 递归反转其余组
+                if tempCurrent != nil {
+                    // 反转一组节点之后 head从头节点变成了尾节点，重新赋值head的后向节点（该后向节点就是 下一组链表反转后的头节点）
+                    head?.next = reverseKGroup(tempCurrent, k)
+                }
+                return prev
+            }
+            // k比链表还长 则直接返回原链表
+            return head
     }
     
 }
