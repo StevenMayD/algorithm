@@ -53,34 +53,45 @@ class KthLargest {
  1.维护位置heap：O(logK)
  2.取堆顶max值：O(N)
 
- 解法2 标准解法：队列，时间复杂度为 O(N) = N*O(1)
+ 解法2 标准解法：双端队列(头和尾都能添加和移除元素)，时间复杂度为 O(N) = N*O(1)
  1.入队列：N个元素
  2.维护查询：O(1)
  */
 class Solution2 {
-    // 解法2 标准解法：队列，时间复杂度为 O(N) = N*O(1)
+    // 解法2 标准解法：双端队列队列，时间复杂度为 O(N) = N*O(1)
     func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
         // 先容错 更专业
         if nums.isEmpty {
             return []
         }
-        var kNums:[Int] = []
-        var resultNums:[Int] = []
-        for item in nums {
-            if kNums.count < k {
-                kNums.append(item) // 先添加
-                if kNums.count == k { // 刚刚加满k个的时候 获取k个元素的最大值resultNumsresultNums
-                    let temp = kNums.sorted(by: >)
-                    resultNums.append(temp.first!)
-                }
-            } else { // 满k个后再添加，就移除第一个，再添加新的至最后，再获取k个元素的最大值进resultNums
-                kNums.removeFirst()
-                kNums.append(item)
-                let temp = kNums.sorted(by: >)
-                resultNums.append(temp.first!)
+        /* 存储k个元素的滑动窗口，存储元素下标，而不是存储值
+         这个算法通过维护一个双端队列 window，在每次移动滑动窗口时，将队列内比当前元素小的元素全部弹出，保持队列递减。然后，检查队首元素是否超出窗口范围，如果超出则弹出。将当前元素的索引加入队列，并在窗口内有 k 个元素时，将队首元素对应的数组值加入结果列表。
+
+         这个算法的时间复杂度为 O(n)，因为每个元素只会被添加到队列和从队列中移除一次。它可以在滑动窗口内高效地找到最大值。
+         */
+        var result: [Int] = [] // 记录结果值
+        var window: [Int] = [] // 滑动窗口，记录下标
+
+        for i in 0..<nums.count {
+            // 保持窗口内元素递减，确保最大值在队首：如果新晋元素比 窗口末尾 值大，就循环移除末尾值（哪怕就剩新晋元素一个位于队首，那么在它移除之前，他就是最大值）
+            while !window.isEmpty && nums[i] >= nums[window.last!] {
+                window.removeLast()
+            }
+
+            // 移除窗口外的元素：窗口移动中，移除最老的元素
+            while !window.isEmpty && window.first! <= i - k {
+                window.removeFirst()
+            }
+
+            window.append(i)
+
+            // 当窗口内达到了 k 个元素时，记录当前窗口的最大值（即窗口首个元素）
+            if i >= k - 1 {
+                result.append(nums[window.first!])
             }
         }
-        return resultNums
+
+        return result
     }
 }
 
