@@ -42,4 +42,40 @@ class Map {
         // == 比较值是否相等
         return dictS == dictT
     }
+    
+    /*  两数之和
+     */
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        // 方法一：效率不高，没有用到 字典，靠字典自带的“contains”方法，其还是遍历循环实现的
+//        for (indexX, itemX) in nums.enumerated() {
+//            let itemY = target - itemX
+//            if nums.contains(itemY) { // 判断数组是否包含 另一个因子
+//                let indexY = nums.firstIndex(of: itemY)!
+//                if indexX != indexY { // 不能两次 取同一个元素
+//                    return [indexX, indexY]
+//                }
+//            }
+//        }
+//
+        // 方法二：使用 Map字典
+        var tempDict:[Int : Int] = [:]
+        for (indexX, itemX) in nums.enumerated() {
+            var itemY = target - itemX // 另一个因子
+            
+//            let indexY:Int! // 这里不能为 ? 因为?表示可以为nil，indexY需要加入字典中，nil加入字典会崩溃
+//            indexY = tempDict[itemY]
+//            if indexY != nil {
+            
+            // 声明变量并判断，代替上述三行代码的写法
+            if let indexY:Int = tempDict[itemY] {
+                // 如果另一个因子存在于 比对库
+                return [indexX, indexY] // 则找到了 直接返回
+            } else {
+                // 否则 将当前因子加入比对库，供下一个因子比对
+                tempDict[itemX] = indexX
+            }
+        }
+        // 如果未找到匹配的数对，返回空数组或其他适当的标志
+        return []
+    }
 }
