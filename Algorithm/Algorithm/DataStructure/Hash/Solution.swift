@@ -78,4 +78,35 @@ class Map {
         // 如果未找到匹配的数对，返回空数组或其他适当的标志
         return []
     }
+    
+    /*  三数之和
+     Map字典，常用语处理查询和计数的算法题
+     */
+    func threeSum(_ nums: [Int]) -> [[Int]] {
+        var resultArr:[[Int]] = []
+        
+        // 方法一：3次循环，性能差，O(N³)
+//        var tempNums = nums
+//        tempNums.sort() // 先排序
+//        for (indexA, itemA) in tempNums.enumerated() {
+//            for (indexB, itemB) in tempNums.enumerated() where indexB>indexA {
+//                for (indexC, itemC) in tempNums.enumerated() where indexC>indexB {
+//                    // 排除重复添加
+//                    if (itemA + itemB + itemC == 0 && !resultArr.contains([itemA, itemB, itemC])) {
+//                        resultArr.append([itemA, itemB, itemC])
+//                    }
+//                }
+//
+//            }
+//        }
+        
+        // 方法二：利用Set集合，2次循环 O(N²)
+        
+        
+        
+        return resultArr
+    }
+        
+        
+   
 }
