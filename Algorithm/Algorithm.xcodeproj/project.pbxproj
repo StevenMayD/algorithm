@@ -20,6 +20,7 @@
 		D7A0914B2A8642C700B4D534 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A091492A8642C700B4D534 /* LaunchScreen.storyboard */; };
 		D7A091552A86434C00B4D534 /* ListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A091542A86434C00B4D534 /* ListNode.swift */; };
 		D7A091572A86436D00B4D534 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A091562A86436D00B4D534 /* Solution.swift */; };
+		D7A371542AD3EA0A00E91557 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A371532AD3EA0A00E91557 /* Solution.swift */; };
 		D7B8F96B2AC5121A00A23685 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B8F96A2AC5121A00A23685 /* Solution.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		D7A0914C2A8642C700B4D534 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7A091542A86434C00B4D534 /* ListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNode.swift; sourceTree = "<group>"; };
 		D7A091562A86436D00B4D534 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
+		D7A371532AD3EA0A00E91557 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
 		D7B8F96A2AC5121A00A23685 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 		D7A091522A86432600B4D534 /* DataStructure */ = {
 			isa = PBXGroup;
 			children = (
+				D7A371522AD3E9EA00E91557 /* Recursion */,
 				D7B8F9692AC511FE00A23685 /* Tree */,
 				D738ABC12A9E01FB002517A3 /* Hash */,
 				D70D92AA2A8E2D730077458A /* PriorityQueue */,
@@ -129,6 +132,14 @@
 				D7A091562A86436D00B4D534 /* Solution.swift */,
 			);
 			path = ListNode;
+			sourceTree = "<group>";
+		};
+		D7A371522AD3E9EA00E91557 /* Recursion */ = {
+			isa = PBXGroup;
+			children = (
+				D7A371532AD3EA0A00E91557 /* Solution.swift */,
+			);
+			path = Recursion;
 			sourceTree = "<group>";
 		};
 		D7B8F9692AC511FE00A23685 /* Tree */ = {
@@ -212,6 +223,7 @@
 			files = (
 				D738ABC32A9E0223002517A3 /* Solution.swift in Sources */,
 				D7A091572A86436D00B4D534 /* Solution.swift in Sources */,
+				D7A371542AD3EA0A00E91557 /* Solution.swift in Sources */,
 				D7A091432A8642C300B4D534 /* ViewController.swift in Sources */,
 				D70D92A72A8CC4970077458A /* Stack.swift in Sources */,
 				D7B8F96B2AC5121A00A23685 /* Solution.swift in Sources */,

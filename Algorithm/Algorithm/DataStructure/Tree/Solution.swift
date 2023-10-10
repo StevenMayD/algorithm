@@ -73,7 +73,7 @@ class Tree {
         if (leftTreeCommonAncestor != nil && rightTreeCommonAncestor != nil) {
             return root
         }
-        // 如果在左子树中找到非空值，则p、q都位于根节点左子树一侧，该非空值左节点就是公共祖先
+        // 判断非两侧后，如果在左子树中找到非空值，则p、q都位于根节点左子树一侧，该非空值左节点就是公共祖先
         if (leftTreeCommonAncestor != nil) {
             return leftTreeCommonAncestor
         }
