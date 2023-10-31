@@ -16,7 +16,8 @@ public class Pruning {
     var solveNQueens_pie: [Int]? // solveNQueens问题 撇集合
     var solveNQueens_na: [Int]?  // solveNQueens问题 捺集合
     
-    /* 1、括号生成：https://leetcode.cn/problems/generate-parentheses/
+// MARK: 1、括号生成：https://leetcode.cn/problems/generate-parentheses/
+    /*
      数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
      解决：
         解法1：DFS深度优先搜索(递归)来解决问题。当n给定了，其实字符串长度也就给定了2*n，()两个不同的字符，此长度的排列组合可能性有2^2nz种，再递归判断是否合法即可，时间复杂度O(2^2n)
@@ -56,13 +57,13 @@ public class Pruning {
     }
     
     
-    
-    /* 2、N 皇后：https://leetcode.cn/problems/n-queens/
+// MARK: 2、N 皇后：https://leetcode.cn/problems/n-queens/
+    /*
      给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
      
      n 皇后问题： 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
      
-     解法：DFS + 剪枝优化， DFS分析列，撇，捺 三个直线位置的冲突
+     解法：DFS搜索 + 剪枝优化， DFS分析列，撇，捺 三个直线位置的冲突
      同列：
      */
     func solveNQueens(_ n: Int) -> [[String]] {
@@ -137,8 +138,8 @@ public class Pruning {
     }
     
     
-    
-    /* 3、N 皇后 II：https://leetcode.cn/problems/n-queens-ii/
+// MARK: 3、N 皇后 II：https://leetcode.cn/problems/n-queens-ii/
+    /*
      给你一个整数 n ，返回 n 皇后问题 不同的解决方案的数量。
      */
     func totalNQueens(_ n: Int) -> Int {
@@ -147,4 +148,82 @@ public class Pruning {
     }
     
     
+    
+// MARK: 4、有效的数独 https://leetcode.cn/problems/valid-sudoku/
+    /*
+     请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。而不是解出数独答案
+     */
+    func isValidSudoku(_ board: [[Character]]) -> Bool {
+        // 条件校验
+        if (board.isEmpty) {
+            // 空数组，非法
+            return false
+        }
+        
+        // 挨个获取数独矩阵中第row行，第col列的"非空值"位置，校验其有效性
+        for row in 0..<9 {
+            for col in 0..<9 {
+                // 空值无需校验有效性
+                if (board[row][col] == ".") {
+                    continue
+                }
+                
+                // 如果有效 则校验矩阵中下一个"非空值"位置
+                if (isValidCheck(board, row, col)) {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    
+    /* 具体校验数独矩阵是否有效
+     board：待校验矩阵
+     row：第row行
+     col：第col列
+     */
+    func isValidCheck(_ board: [[Character]], _ row: Int, _ col: Int) -> Bool {
+        // 行的校验：第row行中，不能重复数字
+        for nextCol in col+1 ..< 9 {
+            if (board[row][col] == board[row][nextCol]) {
+                return false
+            }
+        }
+        
+        // 列的校验：每一列中，不能重复数字
+        for nextRow in row+1 ..< 9 {
+            if (board[row][col] == board[nextRow][col]) {
+                return false
+            }
+        }
+        
+        // 小宫格校验：待校验位置(row、col)所在的3*3小宫格中，不能重复数字
+        let lRow = row / 3 // 待校验行 所属的小宫格的行
+        let lCol = col / 3 // 待校验列 所属的小宫格的列
+        for i in lRow*3..<lRow*3 + 3 {
+            for j in lCol*3..<lCol*3 + 3 {
+                // 不是待校验位置本身
+                if (i != row && j != col) {
+                    if (board[row][col] == board[i][j]) {
+                        return false
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    
+    
+// MARK: 5、解数独 https://leetcode.cn/problems/sudoku-solver/
+    /*
+     编写一个程序，通过填充空格来解决数独问题。
+     */
+    func solveSudoku(_ board: inout [[Character]]) {
+
+    }
 }
