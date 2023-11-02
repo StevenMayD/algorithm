@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 数据结构1 - 链表 List
+ */
+
 public class Solution {
     // 反转链表
     func reverseList(_ head: ListNode?) -> ListNode? {

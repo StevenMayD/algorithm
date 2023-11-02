@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 链表节点类
+ */
+
 public class ListNode: Hashable {
     public var val: Int
     public var next: ListNode?

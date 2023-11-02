@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 算法4 - 二分查找 BinarySearch
+ */
+
 public class BinarySearch {
     
 // MARK: 1、x 的平方根：https://leetcode.cn/problems/sqrtx/

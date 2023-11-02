@@ -7,6 +7,10 @@
 
 import Foundation
 
+/* 数据结构2 - 栈 stack
+   数据结构3 - 队列 queue
+ */
+
 public class solution {
     /* 有效的括号
      目标: 判断一个只含有大、中、小括号的字符串，是否有效
@@ -18,7 +22,7 @@ public class solution {
      */
     func isValid(_ s: String) -> Bool {
         /* 没有现成的栈类，通过数组来实现栈，入栈，出栈，空栈判断
-            !!! 注意 数组的第一个元素.first是栈底，数组的最后一个元素.last是栈顶
+         ⭐️ !!! 注意 数组的第一个元素.first是栈底，数组的最后一个元素.last是栈顶
          */
         var stack:[String] = [] // 栈 保存括号字符串
         var bracketDict:[String:String] = [")":"(", "]":"[", "}":"{"] // 字典存储“括号对“参照

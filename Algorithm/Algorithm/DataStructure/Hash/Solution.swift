@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 数据结构5 - 哈希表 HashMap
+ */
+
 class Map {
     
     /* 有效的字母异位词

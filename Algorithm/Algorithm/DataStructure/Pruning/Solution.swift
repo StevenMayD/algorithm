@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 策略1 - 剪枝 Pruning
+ */
+
 public class Pruning {
     // 声明一个全局变量，用于递归时使用
     var generateParenthesis_resultArr : [String]?

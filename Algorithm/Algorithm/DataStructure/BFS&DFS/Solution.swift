@@ -7,7 +7,9 @@
 
 import Foundation
 
-// 广度优先搜索 与 深度优先搜索：
+/* 算法3 - 广度优先搜索 BFS、 深度优先搜索 DFS
+ */
+
 public class BFS_DFS {
     var DFS_resultArr : [[Int]]? // 声明一个类 属性
     
@@ -30,7 +32,7 @@ public class BFS_DFS {
      ]
      */
     func levelOrder_1(_ root: TreeNode?) -> [[Int]] {
-        // ！！！先排除空节点的情况，避免很多麻烦
+        // ⭐️ ！！！先排除空节点的情况，避免很多麻烦
         if (root == nil) {
             return []
         }
@@ -44,7 +46,7 @@ public class BFS_DFS {
             
             var levelCount = levelArr.count // 固定值 作为当前层级的循环次数
             for _ in 0..<levelCount {
-                // 注意：！！这里按数组元素固定个数遍历，而不是遍历数组，因为for里面不断在给数组levelArr添加元素。这样只会循环当前层级的次数
+                // ⭐️ 注意：！！这里按数组元素固定个数遍历，而不是遍历数组，因为for里面不断在给数组levelArr添加元素。这样只会循环当前层级的次数
                 var levelNodeFirst : TreeNode = levelArr.removeFirst() // 取出并移除第一个节点，进行处理
                 eleValueArr.append(levelNodeFirst.val)
                 

@@ -7,6 +7,9 @@
 
 import Foundation
 
+/* 数据结构4 - 优先队列 PriorityQueue
+ */
+
 /*
  ⭐️数据流中的第 K 大元素：https://leetcode.cn/problems/kth-largest-element-in-a-stream/
   破局：优先队列的结构，是处理流式的数据，最好的结构（优先队列，自带排序位置，方便获取指定大小顺序的元素）
