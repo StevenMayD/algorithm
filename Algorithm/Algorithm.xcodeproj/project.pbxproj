@@ -16,6 +16,7 @@
 		D749CD952AF378D20012F05A /* Trie_Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D749CD942AF378D20012F05A /* Trie_Solution.swift */; };
 		D749CD982AF4F8320012F05A /* BitwiseOperation_Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D749CD972AF4F8320012F05A /* BitwiseOperation_Solution.swift */; };
 		D74AD14B2AE660AF00CADBB7 /* Pruning_Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74AD14A2AE660AF00CADBB7 /* Pruning_Solution.swift */; };
+		D75ECFF72AFE215B00B0C026 /* DynamicPrograming_Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75ECFF62AFE215B00B0C026 /* DynamicPrograming_Solution.swift */; };
 		D7A0913F2A8642C300B4D534 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0913E2A8642C300B4D534 /* AppDelegate.swift */; };
 		D7A091412A8642C300B4D534 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A091402A8642C300B4D534 /* SceneDelegate.swift */; };
 		D7A091432A8642C300B4D534 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A091422A8642C300B4D534 /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 		D749CD942AF378D20012F05A /* Trie_Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie_Solution.swift; sourceTree = "<group>"; };
 		D749CD972AF4F8320012F05A /* BitwiseOperation_Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitwiseOperation_Solution.swift; sourceTree = "<group>"; };
 		D74AD14A2AE660AF00CADBB7 /* Pruning_Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pruning_Solution.swift; sourceTree = "<group>"; };
+		D75ECFF62AFE215B00B0C026 /* DynamicPrograming_Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicPrograming_Solution.swift; sourceTree = "<group>"; };
 		D7A0913B2A8642C300B4D534 /* Algorithm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Algorithm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A0913E2A8642C300B4D534 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7A091402A8642C300B4D534 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 			path = Pruning;
 			sourceTree = "<group>";
 		};
+		D75ECFF52AFE213700B0C026 /* DynamicPrograming */ = {
+			isa = PBXGroup;
+			children = (
+				D75ECFF62AFE215B00B0C026 /* DynamicPrograming_Solution.swift */,
+			);
+			path = DynamicPrograming;
+			sourceTree = "<group>";
+		};
 		D7A091322A8642C300B4D534 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +169,7 @@
 		D7A091522A86432600B4D534 /* DataStructure */ = {
 			isa = PBXGroup;
 			children = (
+				D75ECFF52AFE213700B0C026 /* DynamicPrograming */,
 				D749CD962AF4F7F90012F05A /* BitwiseOperation */,
 				D749CD932AF378980012F05A /* Trie */,
 				D749CD902AF112FE0012F05A /* BinarySearch */,
@@ -288,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D749CD982AF4F8320012F05A /* BitwiseOperation_Solution.swift in Sources */,
+				D75ECFF72AFE215B00B0C026 /* DynamicPrograming_Solution.swift in Sources */,
 				D738ABC32A9E0223002517A3 /* Hash_Solution.swift in Sources */,
 				D7A091572A86436D00B4D534 /* ListNode_Solution.swift in Sources */,
 				D7A371542AD3EA0A00E91557 /* Recursion_Solution.swift in Sources */,

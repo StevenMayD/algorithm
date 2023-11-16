@@ -8,7 +8,7 @@
 import Foundation
 
 
-/* 算法4 - 位运算 Bitwise Operation
+/* 算法5 - 位运算 Bitwise Operation
  */
 
 class BitwiseOperation {
