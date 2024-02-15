@@ -11,7 +11,7 @@ import Foundation
  */
 class DynamicPrograming {
     private var climbed : [Int : Int] = [:] // 记忆已爬过的楼梯
-    private var minimumTotalArr : [Int] = []
+    var minArr : [[Int]]? // 声明数组对象
 
 // MARK: 1、 爬楼梯 https://leetcode.cn/problems/climbing-stairs/
     /*
@@ -87,47 +87,71 @@ class DynamicPrograming {
      
      */
     func minimumTotal_1(_ triangle: [[Int]]) -> Int {
-        getMinimumTotal(triangle)
-        return minimumTotalArr.min()!
+        /* ✨✨✨✨ 先预先定义二维数组的大小
+         创建一个大小为 triangle.count x triangle.count 的二维数组，并用 -1 填充初始化。这样，在访问 memo 的元素时就不会出现访问空数组的情况了。
+         
+         创建一个10个元素，元素值为-1的数组:
+         var array: [Int] = [Int](repeating: -1, count: 10)
+         创建二维数组，数组为10个元素，元素值为数组（10个元素的数组）:
+         var array: [[Int]] = [[Int]](repeating: [Int](repeating: -1, count: 10), count: 10)
+         */
+        // 创建二维空数组
+        self.minArr = [[Int]](repeating: [Int](repeating: -1, count: triangle.count), count: triangle.count)
+        return dfs_minimumTotal(triangle, 0 , 0);
     }
-    func getMinimumTotal(_ triangle: [[Int]]) {
-        // 两层循环，深度优先遍历，递归进行遍历
-        var total = 0
-        for (i, itemI) in triangle.enumerated() {
-            for (j, itemJ) in itemI.enumerated() {
-                if ()
-            }
-            
+    // 获取triangle数组中，第i行、第j列的节点，至三角形底部的最小路径
+    func dfs_minimumTotal(_ triangle: [[Int]], _ i: Int, _ j: Int) -> Int {
+        if (i == triangle.count - 1) {
+            // 三角形底部行的最小路径，就是底部数值本身
+            return triangle[i][j]
         }
+        if self.minArr?[i][j] != -1 {
+            return (self.minArr?[i][j])!
+        }
+        // (i, j)节点的左分支的最小路径
+        let left = dfs_minimumTotal(triangle, i+1, j);
+        // (i, j)节点的右分支的最小路径
+        let right = dfs_minimumTotal(triangle, i+1, j+1);
+        // 这里使用了数组的[i][j]空间，所以创建数组时，需要定义好数组空间大小
+        self.minArr?[i][j] = min(left, right) + triangle[i][j];
+
+        return (self.minArr?[i][j])!
     }
-    // 解法2：贪心算法，行不通，步步为营，并不能确保最后就是所有可能的最佳结果
+
+
+    
+    /* 解法2：贪心算法，行不通，步步为营，并不能确保最后就是所有可能的最佳结果
+     */
+    
     
     /* 解法3：
-     DP：计算机思维，从下往上递推
-     1、循环递推
-     初始条件：f(0, 0) = val(0, 0)
-     2、状态定义
-     数组保存路径过程中的节点
-     3、递推公式：f(i, j) = min[f(i+1, j), f(i+1, j+1)] + val(i, j)
-     */
+      1、循环递推：反转循环递推
+      2、状态数组定义：f(i, j)二维数组，表示(i, j)位置的最小路径
+      3、状态转移方程：f(i, j) = min[f(i+1, j), f(i+1, j+1)] + val(i, j)
+      */
     func minimumTotal_2(_ triangle: [[Int]]) -> Int {
-        // 1、循环递推
-        
-        // 2、状态定义
-        
-        // 3、递推公式
-        var total = triangle[0][0]
-        for (i, itemI) in triangle.enumerated() {
-            if (i != triangle.count-1) {
-                var itemNext = triangle[i+1]
-                total = total + min(itemNext[i], itemNext[i+1])
-            } else {
-                
+        /* 注意：这里不能像dfs解法那样，创建二维空数组
+         这两种解法之所以需要不同的数据结构，主要是因为它们在处理子问题时的方式不同。
+         DFS（深度优先搜索）解法：是从上而下，需要一个空数组记录
+         DFS 解法通常会采用递归的方式，因此需要一个用来存储已经计算过的子问题结果的缓存（memoization）。在这种情况下，memo 数组被用来记录每个位置的最小路径和。
+         由于 DFS 是递归的，每次调用递归函数时，都需要将 memo 作为参数传递给递归函数，以确保递归过程中对 memo 的修改可以在不同的递归调用中共享。
+         
+         动态规划解法：是从下而上，需要一个和原数组结构一致的数组
+         动态规划解法通常采用迭代的方式，从底部向顶部计算最优解。在这种情况下，不需要递归或者共享存储结果。
+         动态规划解法中，dp 数组用来记录从底部到当前位置的最小路径和，每个位置都是通过比较当前位置下方的两个位置的最小路径和来计算的。
+         因此，尽管这两种解法的思路是相同的，但由于实现方式不同，所以需要使用不同的数据结构来存储计算过程中的信息。
+         */
+        var minArr = triangle
+        for i in (0..<triangle.count-1).reversed() {
+            for j in 0..<triangle[i].count {
+                if (i == triangle.count-1) {
+                    minArr[i][j] = triangle[i][j]
+                } else {
+                    minArr[i][j] = min(minArr[i+1][j], minArr[i+1][j+1]) + triangle[i][j]
+                }
             }
-            
-            
         }
-        return 1
+        return minArr[0][0]
     }
 }
 
