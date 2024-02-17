@@ -132,11 +132,11 @@ class DynamicPrograming {
     func minimumTotal_2(_ triangle: [[Int]]) -> Int {
         /* 注意：这里不能像dfs解法那样，创建二维空数组
          这两种解法之所以需要不同的数据结构，主要是因为它们在处理子问题时的方式不同。
-         DFS（深度优先搜索）解法：是从上而下，需要一个空数组记录
+         DFS（深度优先搜索）解法：是自上而下，由于需要循环遍历同一个数组，所以需要一个新数组作为状态数组来进行记录，不能用原有数组作为状态数组
          DFS 解法通常会采用递归的方式，因此需要一个用来存储已经计算过的子问题结果的缓存（memoization）。在这种情况下，memo 数组被用来记录每个位置的最小路径和。
          由于 DFS 是递归的，每次调用递归函数时，都需要将 memo 作为参数传递给递归函数，以确保递归过程中对 memo 的修改可以在不同的递归调用中共享。
          
-         动态规划解法：是从下而上，需要一个和原数组结构一致的数组
+         动态规划解法：是从下而上，底部访问过的元素，不再使用了，可以直接利用原来数组作为状态数组
          动态规划解法通常采用迭代的方式，从底部向顶部计算最优解。在这种情况下，不需要递归或者共享存储结果。
          动态规划解法中，dp 数组用来记录从底部到当前位置的最小路径和，每个位置都是通过比较当前位置下方的两个位置的最小路径和来计算的。
          因此，尽管这两种解法的思路是相同的，但由于实现方式不同，所以需要使用不同的数据结构来存储计算过程中的信息。
@@ -152,6 +152,35 @@ class DynamicPrograming {
             }
         }
         return minArr[0][0]
+    }
+    
+    
+    
+    // MARK: 3、乘积最大子序列 https://leetcode.cn/problems/maximum-product-subarray/
+    func maxProduct(_ nums: [Int]) -> Int {
+        /*
+         1、循环递推：累乘元素
+         2、状态数组：由于负负得正，所以还需要记录一个最小值（即负的最大值）
+         DP[i] = 累乘到第i个元素时的结果
+         3、状态转移方程：
+         DP[i] = DP[i-1] * val[i]
+         */
+        func maxProduct(_ nums: [Int]) -> Int {
+            if (nums.isEmpty) {
+                return 0
+            }
+            var dpMax = nums[0] // 记录最大值
+            var dpMin = nums[0] // 记录最小值
+            var result = nums[0]
+            for i in 1..<nums.count {
+                let dpMaxTmp = dpMax
+                let dpMinTmp = dpMin
+                dpMax = max(nums[i], max(dpMaxTmp * nums[i], dpMinTmp * nums[i]))
+                dpMin = min(nums[i], min(dpMaxTmp * nums[i], dpMinTmp * nums[i]))
+                result = max(result, dpMax) // 旧值和新最大值中，取其中的大
+            }
+            return result
+        }
     }
 }
 
