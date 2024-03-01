@@ -157,7 +157,6 @@ class DynamicPrograming {
     
     
     // MARK: 3、乘积最大子序列 https://leetcode.cn/problems/maximum-product-subarray/
-    func maxProduct(_ nums: [Int]) -> Int {
         /*
          1、循环递推：累乘元素
          2、状态数组：由于负负得正，所以还需要记录一个最小值（即负的最大值）
@@ -181,6 +180,77 @@ class DynamicPrograming {
             }
             return result
         }
+    
+    
+    // MARK: 4、最长上升子序列 https://leetcode.cn/problems/longest-increasing-subsequence/
+    /*
+     1、循环递推：
+     2、状态数组：DP[i]为 从头到第i个元素的最长递增子序列
+     DP[i] = 累乘到第i个元素时的结果
+     3、状态转移方程：
+     for(0 -> n-1) {
+        for(0 -> i) {
+            if (val(i) > val(j)) {
+                dp[i] = max(dp[i], dp[j] + 1) // (i之前的最长子序列j， +1)
+            }
+        }
+     }
+     return max(DP[0], DP[1],...,DP[n-1])
+     */
+    func lengthOfLIS(_ nums: [Int]) -> Int {
+        guard !nums.isEmpty else {
+            return 0
+        }
+        var dp : [Int] = [Int](repeating: 0, count: nums.count)
+        for i in 1..<nums.count {
+            for j in 0..<i {
+                if nums[i] > nums[j] {
+                    dp[i] = max(dp[i], dp[j] + 1)
+                }
+            }
+        }
+        return dp.max() ?? 1
+        
     }
+    
+    // MARK: 5、零钱兑换 https://leetcode.cn/problems/coin-change/description/
+    /*
+     1、循环递推：
+     2、状态数组：dp[i]为总金额为i，需要的最少的硬币数
+     3、状态转移方程：dp[i]等于 使用可选多种硬币的情况下，使用某个硬币之前，的最少硬币数情况 + 1个硬币
+        dp[i] = min(dp[i - coins(j)]) + 1
+     */
+    func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+        guard amount != 0 else {
+            return 0
+        }
+        var dp = [Int](repeating: 0, count: amount-1)
+        var tmpCoins = [Int](repeating: 0, count: coins.count)
+        for i in 1..<amount+1 {
+            if (i == 1 && coins.min() == 1) {
+                dp[i] = 1
+            } else {
+                dp[i] = 0
+            }
+            for coin in coins {
+                if (i - coin > 0) {
+                    tmpCoins.append(i - coin)
+                }
+            }
+            var minCoin = dp[tmpCoins[0]]
+            for coin in tmpCoins {
+                minCoin = (minCoin>dp[tmpCoins[coin]]) ? dp[tmpCoins[coin]] : minCoin
+            }
+            dp[i] = minCoin + 1
+        }
+        return dp[amount]
+    }
+    
+    
+    
+    
+    
+    
+    
 }
 
