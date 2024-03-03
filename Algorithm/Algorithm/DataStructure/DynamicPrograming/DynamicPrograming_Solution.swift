@@ -218,32 +218,25 @@ class DynamicPrograming {
      1、循环递推：
      2、状态数组：dp[i]为总金额为i，需要的最少的硬币数
      3、状态转移方程：dp[i]等于 使用可选多种硬币的情况下，使用某个硬币之前，的最少硬币数情况 + 1个硬币
-        dp[i] = min(dp[i - coins(j)]) + 1
+        dp[i] = min(dp[i - coins(j)]+1)
      */
     func coinChange(_ coins: [Int], _ amount: Int) -> Int {
         guard amount != 0 else {
             return 0
         }
-        var dp = [Int](repeating: 0, count: amount-1)
-        var tmpCoins = [Int](repeating: 0, count: coins.count)
-        for i in 1..<amount+1 {
-            if (i == 1 && coins.min() == 1) {
-                dp[i] = 1
-            } else {
-                dp[i] = 0
-            }
+        // 需要取较小值，那么默认值就设置大值
+        var dp = [Int](repeating: amount+1, count: amount+1)
+        dp[0] = 0
+        for i in 1...amount {
             for coin in coins {
-                if (i - coin > 0) {
-                    tmpCoins.append(i - coin)
+                if (i >= coin) {
+                    // 取多种硬币组合中的较小个数
+                    dp[i] = min(dp[i], dp[i - coin]+1)
                 }
             }
-            var minCoin = dp[tmpCoins[0]]
-            for coin in tmpCoins {
-                minCoin = (minCoin>dp[tmpCoins[coin]]) ? dp[tmpCoins[coin]] : minCoin
-            }
-            dp[i] = minCoin + 1
         }
-        return dp[amount]
+        // 如果需要的硬币数量 比 总金额 还大，说明没有一种硬币能组合总金额
+        return dp[amount]>amount ? -1 : dp[amount]
     }
     
     
