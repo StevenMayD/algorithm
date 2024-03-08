@@ -240,7 +240,44 @@ class DynamicPrograming {
     }
     
     
-    
+    // MARK: 6、编辑距离 https://leetcode.cn/problems/edit-distance/description/
+    /*
+     1、状态数组：
+     由于两个单词的变化，需要定义二维数组描述状态
+     定义dp[i][j]：表示将word1的前i个字符，转换为word2的前j个字符，所需的最少操作数
+     2、状态转移方程：dp[i][j]就等于“插入、删除、替换”这三种操作中的最少操作数
+     dp[i-1][j]：word1前i-1个字符，变为word2前j个，插入一个字符即可
+     dp[i][j-1]：word1前i个字符，变为word2前j-1个，删除一个字符即可
+     dp[i-1][j-1]：word1前i个字符，变为word2前j-1个，替换一个字符即可
+     dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+    */
+    func minDistance1(_ word1: String, _ word2: String) -> Int {
+        let m = word1.count
+        let n = word2.count
+        
+        var dp = Array(repeating: Array(repeating: 0, count: n + 1), count: m + 1)
+        
+        for i in 0...m {
+            for j in 0...n {
+                if i == 0 {
+                    dp[i][j] = j
+                } else if j == 0 {
+                    dp[i][j] = i
+                } else if Array(word1)[i - 1] == Array(word2)[j - 1] {
+                    /*
+                     word1构成的数组Array(word1)，元素个数为i-1，下标为i-1的元素，就是word1字符串的第i个字符
+                     如果word1的第[i-1]个字符 跟 word2的第[j-1]个字符相同
+                     */
+                    dp[i][j] = dp[i - 1][j - 1]
+                } else {
+                    dp[i][j] = min(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]) + 1
+                }
+            }
+        }
+        
+        return dp[m][n]
+    }
+
     
     
     
